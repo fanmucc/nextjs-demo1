@@ -16,18 +16,27 @@ const getItem = (label, key, icon, children) => {
 export default ({ children, params }) => {
 	const router = useRouter();
 	const pathName = usePathname();
-	console.log(usePathname());
 
 	const [theme, setTheme] = useState("light");
 	const [items, setItems] = useState([
-		getItem("Home", "/"),
-		getItem("About", "/about"),
-		getItem("Dashboard", "/dashboard"),
+		getItem("Home", "/", null),
+		getItem("About", "/about", null, [
+			getItem("About1", "/about/about1"),
+			getItem("About2", "/about/about2"),
+		]),
+		getItem("Dashboard", "/dashboard", null),
 	]);
+
+	let [pathKey, setPathKey] = useState(["/"]);
 
 	useEffect(() => {}, [pathName]);
 	const onClick = (e) => {
 		router.push(e?.key, { scroll: false });
+	};
+
+	const subClick = (e) => {
+		console.log(e);
+		setPathKey(e);
 	};
 	return (
 		<div className='h-100vh min-h-100vh max-h-100vh flex'>
@@ -35,9 +44,11 @@ export default ({ children, params }) => {
 				<Menu
 					className='h-100vh min-h-100vh max-h-100vh'
 					theme={theme}
+					onOpenChange={subClick}
 					onClick={onClick}
 					style={{ width: "300px" }}
-					defaultOpenKeys={["/"]}
+					defaultOpenKeys={[]}
+					openKeys={pathKey}
 					selectedKeys={[pathName]}
 					mode='inline'
 					items={items}
