@@ -30,6 +30,9 @@ export default ({ children, params }) => {
 			getItem("拦截路由-图片落地页", "/intercept-route/photo", null),
 			getItem("拦截路由-图片展示", "/intercept-route/photo/1", null),
 		]),
+		getItem("Route", "/route", null),
+		getItem("服务器组件", "/serve-component", null),
+		getItem("客户端组件", "/client-component", null),
 	]);
 
 	let [pathKey, setPathKey] = useState(["/"]);
