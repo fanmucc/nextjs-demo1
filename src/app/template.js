@@ -25,6 +25,11 @@ export default ({ children, params }) => {
 			getItem("About2", "/about/about2"),
 		]),
 		getItem("Dashboard", "/dashboard", null),
+		getItem("拦截路由", "/intercept", null, [
+			getItem("拦截路由", "/intercept-route", null),
+			getItem("拦截路由-图片落地页", "/intercept-route/photo", null),
+			getItem("拦截路由-图片展示", "/intercept-route/photo/1", null),
+		]),
 	]);
 
 	let [pathKey, setPathKey] = useState(["/"]);
