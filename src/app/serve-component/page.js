@@ -15,16 +15,19 @@ async function getData() {
 			]);
 		}, 2000);
 	});
-	// if (!res.ok) {
-	// 	// 这会触发最近的 `error.js` 错误边界
-	// 	throw new Error("Failed to fetch data");
-	// }
-
-	return await data;
+	let res = await fetch("http://127.0.0.1:4523/m1/3740351-0-default/test/demo");
+	if (!res.ok) {
+		// 这会触发最近的 `error.js` 错误边界
+		throw new Error("Failed to fetch data");
+	}
+	return res.json();
+	// return await data;
 }
 
 export default async () => {
-	const data = await getData();
+	const {
+		data: { list },
+	} = await getData();
 	return (
 		<div>
 			<div className='text-3xl'>服务器组件</div>
@@ -35,7 +38,7 @@ export default async () => {
 			</div>
 			<div>渲染列表</div>
 			<Suspense fallback={<p>Loading feed...</p>}>
-				{data?.map((i) => {
+				{list?.map((i) => {
 					return (
 						<div key={i?.id} className='text-xl'>
 							{i?.name}
